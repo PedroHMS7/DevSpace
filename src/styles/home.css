@@ -1,5 +1,74 @@
-.header{
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
     height: 100px;
-    width: 100px;
-    background-color: aquamarine;
-}
+    width: 100%;
+    background-color: rgb(	119,136,153);
+  }
+
+  body{
+    background-color: rgba(192,192,192);
+  }
+  #trilha-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .hidden {
+    visibility: hidden;
+  }
+  
+  #modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .modal-content button {
+    padding: 8px 16px;
+    margin-right: 10px;
+  }
+  
+  #container-trilha{
+    display: flex
+  }
+  .trilha-card{
+    background-color: white;
+    width: 250px;
+    height: 200px;
+    margin: 50px 0px 0px 50px;
+    flex-direction: row;
+    border-radius: 15px;
+    align-content: center;
+    text-align: center;
+    font-size: 25px;
+  }
+  
