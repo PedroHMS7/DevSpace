@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles/trilha.css">
-</head>
-<body>
 
-    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../styles/trilha.css">
+</head>
+
+<body>
+  <header>
+    <h1>DevSpace</h1>
+  </header>
+
+  <main class="main">
+    <div id="barra-prog">
+      <div id="barra-prog-fill"></div>
+      <span id="barra-prog-text">0%</span>
+    </div>
+
+    <button id="topico-btn">Adicionar tópico</button>
+
+    <div id="modal" class="hidden">
+      <div class="modal-content">
+        <h2>Criar novo tópico</h2>
+
+        <input type="text" id="nome-topico" placeholder="Tópico">
+
+        <div class="modal-buttons">
+          <button id="confirmar">Confirmar</button>
+          <button id="cancelar">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <section id="topico-container">
+
+    </section>
+
+  </main>
+  <script src="../scripts/trilha.js"></script>
 </body>
+
 </html>

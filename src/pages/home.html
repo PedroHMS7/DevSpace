@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../styles/home.css">
-</head>
-<body>
-    <header>
-      <h1>DevSpace</h1>
-    </header>
-  
-    <main class="main">
-        <button id="trilha-btn">Criar trilha</button>
 
-        <div id="modal" class="hidden">
-          <div class="modal-content">
-            <h2>Criar nova trilha</h2>
-        
-            <input
-              type="text"
-              id="nome-trilha"
-              placeholder="Nome da trilha"
-            >
-        
-            <div class="modal-buttons">
-              <button id="confirmar">Confirmar</button>
-              <button id="cancelar">Cancelar</button>
-            </div>
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="../styles/home.css">
+</head>
+
+<body>
+  <header>
+    <h1>DevSpace</h1>
+  </header>
+
+  <main class="main">
+    <button id="trilha-btn">Criar trilha</button>
+
+    <div id="modal" class="hidden">
+      <div class="modal-content">
+        <h2>Criar nova trilha</h2>
+
+        <input type="text" id="nome-trilha" placeholder="Nome da trilha">
+
+        <div class="modal-buttons">
+          <button id="confirmar">Confirmar</button>
+          <button id="cancelar">Cancelar</button>
         </div>
-        
-        <section id="container-trilha"></section>
-  
+      </div>
+    </div>
+
+    <section id="container-trilha"></section>
+
     <script src="../scripts/home.js"></script>
-  </body>
-  </html>
+</body>
+
+</html>
