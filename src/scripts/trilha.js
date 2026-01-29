@@ -6,6 +6,7 @@ const inputNome = document.getElementById("nome-topico")
 const container = document.getElementById("topico-container")
 const barraFill = document.getElementById("barra-prog-fill")
 const barraText = document.getElementById("barra-prog-text")
+let topicos = JSON.parse(localStorage.getItem("topicos")) || [];
 
 
 botaoTopico.addEventListener("click", () => {
@@ -26,7 +27,21 @@ confirmar.addEventListener("click", () => {
         return
     }
 
+    const topico = {
+        id: Date.now(),
+        nome:nome
+    };
+
+    topicos.push(topico)
+    localStorage.setItem("topicos",JSON.stringify(topicos));
+
+    criarTopico(topico)
     
+    modal.classList.add("hidden")
+    
+})
+
+function criarTopico(topico) {
     const card = document.createElement("div")
     card.classList.add("topico-card")
 
@@ -38,7 +53,7 @@ confirmar.addEventListener("click", () => {
 
     
     const label = document.createElement("label")
-    label.textContent = nome
+    label.textContent = topico.nome
 
     
     card.appendChild(checkbox)
@@ -51,7 +66,7 @@ confirmar.addEventListener("click", () => {
     modal.classList.add("hidden")
 
     atualizarProgresso()
-})
+}
 
 function atualizarProgresso() {
     const checkboxes = container.querySelectorAll("input[type='checkbox']")
@@ -69,3 +84,7 @@ function atualizarProgresso() {
     barraFill.style.width = `${porcentagem}%`
     barraText.textContent = `${porcentagem}%`
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    topicos.forEach(topico => criarTopico(topico))
+})
