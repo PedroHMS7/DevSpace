@@ -1,0 +1,34 @@
+{
+  "trilhas": [
+    {
+      "id": "2924",
+      "nome": "Java"
+    },
+    {
+      "id": "583e",
+      "nome": "Java"
+    },
+    {
+      "id": "0bb0",
+      "nome": "JS"
+    },
+    {
+      "id": "737e",
+      "nome": "C#"
+    },
+    {
+      "id": "19bf",
+      "nome": "JS"
+    }
+  ],
+  "topicos": [
+    {
+      "id": "5d0d",
+      "nome": "let e const"
+    },
+    {
+      "id": "61bb",
+      "nome": "Funções"
+    }
+  ]
+}
