@@ -6,7 +6,13 @@ const inputNome = document.getElementById("nome-topico")
 const container = document.getElementById("topico-container")
 const barraFill = document.getElementById("barra-prog-fill")
 const barraText = document.getElementById("barra-prog-text")
-let topicos = JSON.parse(localStorage.getItem("topicos")) || [];
+const params = new URLSearchParams(window.location.search)
+const trilhaId = params.get("id")
+
+if (!trilhaId) {
+    alert("Trilha inválida")
+    window.location.href = "home.html"
+}
 
 
 botaoTopico.addEventListener("click", () => {
@@ -28,41 +34,55 @@ confirmar.addEventListener("click", () => {
     }
 
     const topico = {
-        id: Date.now(),
-        nome:nome
+        nome: "",
+        criadaEm: new Date()
     };
 
-    topicos.push(topico)
-    localStorage.setItem("topicos",JSON.stringify(topicos));
-
-    criarTopico(topico)
-    
+    salvarTopico(nome)
     modal.classList.add("hidden")
-    
 })
+
+function salvarTopico(nome) {
+    fetch("http://localhost:3000/topicos", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            nome: nome,
+            trilhaId: trilhaId,
+            concluido: false
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log("Tópico salvo: ", data)
+        criarTopico(data)
+    })
+}
 
 function criarTopico(topico) {
     const card = document.createElement("div")
     card.classList.add("topico-card")
 
-    
+
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.addEventListener("change", atualizarProgresso)
 
 
-    
+
     const label = document.createElement("label")
     label.textContent = topico.nome
 
-    
+
     card.appendChild(checkbox)
     card.appendChild(label)
 
-    
+
     container.appendChild(card)
 
-    
+
     modal.classList.add("hidden")
 
     atualizarProgresso()
@@ -85,6 +105,18 @@ function atualizarProgresso() {
     barraText.textContent = `${porcentagem}%`
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-    topicos.forEach(topico => criarTopico(topico))
-})
+function carregarTopico() {
+    fetch(`http://localhost:3000/topicos?trilhaId=${trilhaId}`)
+    .then(res => res.json())
+    .then(topicos => {
+      topicos.forEach(topico => criarTopico(topico))
+    })
+}
+
+carregarTopico()
+
+fetch(`http://localhost:3000/trilhas/${trilhaId}`)
+  .then(res => res.json())
+  .then(trilha => {
+    console.log("Trilha carregada:", trilha)
+  })
