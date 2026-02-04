@@ -54,38 +54,66 @@ function salvarTopico(nome) {
             concluido: false
         })
     })
-    .then(res=>res.json())
-    .then(data=>{
-        console.log("Tópico salvo: ", data)
-        criarTopico(data)
-    })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Tópico salvo: ", data)
+            criarTopico(data)
+        })
 }
 
 function criarTopico(topico) {
     const card = document.createElement("div")
     card.classList.add("topico-card")
 
-
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
-    checkbox.addEventListener("change", atualizarProgresso)
+    checkbox.checked = topico.concluido == true
 
-
+    checkbox.addEventListener("change", () => {
+        atualizarProgresso()
+        salvarStatusTopico(topico.id, checkbox.checked)
+    })
 
     const label = document.createElement("label")
     label.textContent = topico.nome
 
-
     card.appendChild(checkbox)
     card.appendChild(label)
 
+    const botaoExcluir = document.createElement("button")
+    botaoExcluir.textContent = "Excluir"
+    botaoExcluir.classList.add("btn-delete")
 
-    container.appendChild(card)
+    botaoExcluir.addEventListener("click", (event) => {
+        event.stopPropagation()
+
+        if (confirm("Deseja excluir o tópico?")) {
+            fetch(`http://localhost:3000/topicos/${topico.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+                .then(resp => {
+                    if (resp.ok) {
+                        card.delete()
+                        alert("Tópico excluido com sucesso")
+                    } else {
+                        alert("Erro ao deletar")
+                    }
+                })
+                .catch(error => console.error("Erro: ", error))
+
+        }
+    })
+
+card.appendChild(botaoExcluir)
+container.appendChild(card)
 
 
-    modal.classList.add("hidden")
+modal.classList.add("hidden")
 
-    atualizarProgresso()
+atualizarProgresso()
 }
 
 function atualizarProgresso() {
@@ -105,18 +133,29 @@ function atualizarProgresso() {
     barraText.textContent = `${porcentagem}%`
 }
 
+function salvarStatusTopico(id, concluido) {
+    fetch(`http://localhost:3000/topicos/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ concluido })
+    });
+  }
+  
+
 function carregarTopico() {
     fetch(`http://localhost:3000/topicos?trilhaId=${trilhaId}`)
-    .then(res => res.json())
-    .then(topicos => {
-      topicos.forEach(topico => criarTopico(topico))
-    })
+        .then(res => res.json())
+        .then(topicos => {
+            topicos.forEach(topico => criarTopico(topico))
+        })
 }
 
 carregarTopico()
 
 fetch(`http://localhost:3000/trilhas/${trilhaId}`)
-  .then(res => res.json())
-  .then(trilha => {
-    console.log("Trilha carregada:", trilha)
-  })
+    .then(res => res.json())
+    .then(trilha => {
+        console.log("Trilha carregada:", trilha)
+    })
