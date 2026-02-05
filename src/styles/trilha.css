@@ -61,12 +61,29 @@ header h1 {
   background-color: #1d4ed8;
 }
 
-/* BOTÃO DELETAR TRILHA */
+/* BOTÃO DELETAR TÓPICO*/
 .btn-delete {
   position: absolute;
   bottom: 10px;
   right: 15px;
   background-color: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: background-color 0.2s ease, transform 0.1s ease, opacity 0.2s;
+}
+
+/* BOTÃO EDITAR TÓPICO */
+.btn-editar{
+  position: absolute;
+  bottom: 10px;
+  right: 85px;
+  background-color: #e5c535;
   color: #fff;
   border: none;
   border-radius: 8px;

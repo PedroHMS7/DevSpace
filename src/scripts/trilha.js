@@ -84,6 +84,10 @@ function criarTopico(topico) {
     botaoExcluir.textContent = "Excluir"
     botaoExcluir.classList.add("btn-delete")
 
+    const botaoEditar = document.createElement("button")
+    botaoEditar.textContent = "Editar"
+    botaoEditar.classList.add("btn-editar")
+
     botaoExcluir.addEventListener("click", (event) => {
         event.stopPropagation()
 
@@ -107,6 +111,30 @@ function criarTopico(topico) {
         }
     })
 
+    botaoEditar.addEventListener("click", (event) => {
+        event.stopPropagation()
+        
+        const novoNome = prompt("Editar nome do tópico: ", topico.nome)
+
+        if(!novoNome || !novoNome.trim()) return
+
+        fetch(`http://localhost:3000/topicos/${topico.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: novoNome
+            })
+        })
+        .then(resp => resp.json())
+        .then(topicoAtualizado => {
+            card.childNodes[0].textContent = topicoAtualizado.nome
+        })
+        .catch(err => console.err("Erro ao editar: ", err))
+    })
+    
+card.appendChild(botaoEditar)
 card.appendChild(botaoExcluir)
 container.appendChild(card)
 

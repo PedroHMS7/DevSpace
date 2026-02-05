@@ -74,6 +74,23 @@ header h1 {
   transition: background-color 0.2s ease, transform 0.1s ease, opacity 0.2s;
 }
 
+/* BOTÃO EDITAR TRILHA */
+.btn-editar{
+  position: absolute;
+  bottom: 15px;
+  right: 85px;
+  background-color: #e5c535;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: background-color 0.2s ease, transform 0.1s ease, opacity 0.2s;
+}
+
 /* MODAL */
 .hidden {
   visibility: hidden;

@@ -59,6 +59,10 @@ function criarCard(trilha) {
   botaoExcluir.textContent = "Excluir";
   botaoExcluir.classList.add("btn-delete");
 
+  const botaoEditar = document.createElement("button")
+  botaoEditar.textContent= "Editar"
+  botaoEditar.classList.add("btn-editar")
+
   card.addEventListener("click", () => {
     window.location.href = `trilha.html?id=${trilha.id}`;
   });
@@ -85,6 +89,30 @@ function criarCard(trilha) {
     }
   });
 
+  botaoEditar.addEventListener("click", (event) => {
+    event.stopPropagation()
+
+    const novoNome = prompt("Editar nome da trilha: ", trilha.nome)
+
+    if(!novoNome || !novoNome.trim()) return
+
+    fetch(`http://localhost:3000/trilhas/${trilha.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        nome: novoNome
+      })
+    })
+    .then(res=>res.json())
+    .then(trilhaAtualizada => {
+      card.childNodes[0].textContent = trilhaAtualizada.nome
+    })
+    .catch(error => console.error("Erro ao editar: ", error))
+  })
+
+  card.appendChild(botaoEditar);
   card.appendChild(botaoExcluir);
   container.appendChild(card);
 }
