@@ -27,6 +27,7 @@ cancelar.addEventListener("click", () => {
 
 confirmar.addEventListener("click", () => {
     const nome = inputNome.value.trim()
+    const prioridade = document.getElementById("prioridade").value.trim()
 
     if (!nome) {
         alert("Digite um nome!")
@@ -38,11 +39,11 @@ confirmar.addEventListener("click", () => {
         criadaEm: new Date()
     };
 
-    salvarTopico(nome)
+    salvarTopico(nome, prioridade)
     modal.classList.add("hidden")
 })
 
-function salvarTopico(nome) {
+function salvarTopico(nome, prioridade) {
     fetch("http://localhost:3000/topicos", {
         method: "POST",
         headers: {
@@ -50,6 +51,7 @@ function salvarTopico(nome) {
         },
         body: JSON.stringify({
             nome: nome,
+            prioridade: prioridade,
             trilhaId: trilhaId,
             concluido: false
         })
@@ -64,7 +66,8 @@ function salvarTopico(nome) {
 function criarTopico(topico) {
     const card = document.createElement("div")
     card.classList.add("topico-card")
-
+    card.dataset.id = topico.id
+    const id = card.dataset.id
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.checked = topico.concluido == true
@@ -80,6 +83,14 @@ function criarTopico(topico) {
     card.appendChild(checkbox)
     card.appendChild(label)
 
+    if(topico.prioridade == "baixa"){
+        card.classList.add("prioridade-baixa")
+    }
+    else if(topico.prioridade == "media"){
+        card.classList.add("prioridade-media")
+    }
+    else card.classList.add("prioridade-alta");
+
     const botaoExcluir = document.createElement("button")
     botaoExcluir.textContent = "Excluir"
     botaoExcluir.classList.add("btn-delete")
@@ -92,56 +103,24 @@ function criarTopico(topico) {
         event.stopPropagation()
 
         if (confirm("Deseja excluir o tópico?")) {
-            fetch(`http://localhost:3000/topicos/${topico.id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-                .then(resp => {
-                    if (resp.ok) {
-                        card.delete()
-                        alert("Tópico excluido com sucesso")
-                    } else {
-                        alert("Erro ao deletar")
-                    }
-                })
-                .catch(error => console.error("Erro: ", error))
-
+            apagarTopico(id)
+        } else {
+            alert("Erro ao deletar")
         }
     })
 
     botaoEditar.addEventListener("click", (event) => {
         event.stopPropagation()
-        
-        const novoNome = prompt("Editar nome do tópico: ", topico.nome)
-
-        if(!novoNome || !novoNome.trim()) return
-
-        fetch(`http://localhost:3000/topicos/${topico.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                nome: novoNome
-            })
-        })
-        .then(resp => resp.json())
-        .then(topicoAtualizado => {
-            card.childNodes[0].textContent = topicoAtualizado.nome
-        })
-        .catch(err => console.err("Erro ao editar: ", err))
+        editarTopico(id,topico)
     })
-    
-card.appendChild(botaoEditar)
-card.appendChild(botaoExcluir)
-container.appendChild(card)
 
+    card.appendChild(botaoEditar)
+    card.appendChild(botaoExcluir)
+    container.appendChild(card)
 
-modal.classList.add("hidden")
+    modal.classList.add("hidden")
 
-atualizarProgresso()
+    atualizarProgresso()
 }
 
 function atualizarProgresso() {
@@ -163,14 +142,50 @@ function atualizarProgresso() {
 
 function salvarStatusTopico(id, concluido) {
     fetch(`http://localhost:3000/topicos/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ concluido })
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ concluido })
     });
-  }
-  
+}
+
+function apagarTopico(id) {
+    fetch(`http://localhost:3000/topicos/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
+        .then(resp => {
+            if (resp.ok) {
+                card.delete()
+                alert("Tópico excluido com sucesso")
+            }
+        })
+        .catch(error => console.error("Erro: ", error))
+}
+
+function editarTopico(id,topico) {
+    const novoNome = prompt("Editar nome do tópico: ", topico.nome)
+
+    if (!novoNome || !novoNome.trim()) return
+
+    fetch(`http://localhost:3000/topicos/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            nome: novoNome
+        })
+    })
+        .then(resp => resp.json())
+        .then(topicoAtualizado => {
+            card.childNodes[0].textContent = topicoAtualizado.nome
+        })
+        .catch(err => console.err("Erro ao editar: ", err))
+}
 
 function carregarTopico() {
     fetch(`http://localhost:3000/topicos?trilhaId=${trilhaId}`)
