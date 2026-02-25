@@ -1,13 +1,16 @@
 const btn = document.getElementById("btn-logar")
+const inputEmail = document.getElementById("email-login")
+const inputSenha = document.getElementById("senha-login")
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", (e) => {
+    e.preventDefault()
     logar()
 })
 
 function logar() {
 
-    const email = document.getElementById("email-login").value.trim()
-    const senha = document.getElementById("senha-login").value.trim()
+    const email = inputEmail.value.trim()
+    const senha = inputSenha.value.trim()
 
     if (!email || !senha) {
         alert("Preencha todos os campos.")

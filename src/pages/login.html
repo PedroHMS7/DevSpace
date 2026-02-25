@@ -9,15 +9,28 @@
 </head>
 
 <body>
-    <h1>Sign up</h1>
+    <div class="container">
 
-    <div id="caixas-container">
-        <input id="email-login" type="email" placeholder="Email">
-        <input id="senha-login" type="password" placeholder="Senha">
-        <button id="btn-logar">Entrar</button>
+        <div class="left-side">
+            <h2>Olá novamente!</h2>
+            <p>Entre na sua conta para continuar suas trilhas.</p>
+            <button class="btn-outline" onclick="window.location.href='cadastro.html'">
+                Criar Conta
+            </button>
+        </div>
+    
+        <div class="right-side">
+            <h2>Entrar</h2>
+    
+            <input id="email-login" type="email" placeholder="Email">
+            <input id="senha-login" type="password" placeholder="Senha">
+    
+            <button id="btn-logar">Entrar</button>
+        </div>
+    
     </div>
 
-<script src="../scripts/login.js"></script>
+    <script src="../scripts/login.js"></script>    
 </body>
 
 </html>

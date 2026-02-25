@@ -3,7 +3,8 @@ const inputEmail = document.getElementById("email-cadastro")
 const inputSenha = document.getElementById("senha-cadastro")
 const btn = document.getElementById("btn-cadastro")
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", (e) => {
+    e.preventDefault()
     cadastrar()
 })
 
@@ -52,11 +53,13 @@ function cadastrar() {
                 .then(res => res.json())
                 .then(data => {
                     alert("Cadastro realizado com sucesso!")
-
+                    
                     // limpar campos
                     inputNome.value = ""
                     inputEmail.value = ""
                     inputSenha.value = ""
-                })
+
+                    window.location.href = "login.html"   
+                })           
         })
 }
