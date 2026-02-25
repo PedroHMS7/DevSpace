@@ -1,0 +1,15 @@
+#caixas-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+#email-login{
+    width: 50%;
+    height: 20px; 
+}
+#senha-login{
+    width: 50%;
+    height: 20px; 
+}

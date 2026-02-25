@@ -1,0 +1,19 @@
+#caixas-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+#nome-cadastro{
+    width: 50%;
+    height: 20px; 
+}
+#email-cadastro{
+    width: 50%;
+    height: 20px; 
+}
+#senha-cadastro{
+    width: 50%;
+    height: 20px; 
+}
