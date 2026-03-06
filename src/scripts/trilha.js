@@ -6,6 +6,7 @@ const inputNome = document.getElementById("nome-topico")
 const container = document.getElementById("topico-container")
 const barraFill = document.getElementById("barra-prog-fill")
 const barraText = document.getElementById("barra-prog-text")
+const botaoVoltar = document.getElementById("btn-voltar")
 const params = new URLSearchParams(window.location.search)
 const trilhaId = params.get("id")
 
@@ -14,6 +15,9 @@ if (!trilhaId) {
     window.location.href = "home.html"
 }
 
+botaoVoltar.addEventListener("click", () => {
+    window.location.href = 'home.html'
+})
 
 botaoTopico.addEventListener("click", () => {
     modal.classList.remove("hidden")

@@ -61,6 +61,22 @@ header h1 {
   background-color: #1d4ed8;
 }
 
+/* BOTÃO VOLTAR */
+#btn-voltar{
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  padding: 14px 22px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  background-color: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
 /* BOTÃO DELETAR TÓPICO*/
 .btn-delete {
   position: absolute;
